@@ -1,10 +1,11 @@
-# Programa del CLEI 2026 — ITAM
+# Programa de la 52ª CLEI 2026 — ITAM
 
 Página web del programa del congreso, pensada para consultarse desde el celular
 mediante un código QR. Un solo archivo, sin dependencias externas.
 
 - **Sede:** Instituto Tecnológico Autónomo de México, Ciudad de México
 - **Fechas:** 7 al 11 de septiembre de 2026
+- **Sitio oficial:** https://conferencia2026.clei.org/es-cl/inicio/
 
 ---
 
@@ -58,6 +59,63 @@ Cambia el `"tipo"` a `"Sesión cancelada"` y vacía `"pon":[]`.
 
 ---
 
+## Cómo cambiar los colores
+
+La paleta completa está al inicio de la hoja de estilos, dentro de `:root{ }`, con un
+comentario que explica para qué sirve cada color. Se cambian ahí y afectan a toda la página.
+
+Los colores de los tracks (verde para Sistemas Inteligentes, rosa para el LAWCC, amarillo
+para el TLISC, etc.) **no están en esa paleta**: viven en el bloque de datos, porque son
+los mismos colores del programa impreso y deben coincidir con la señalización del evento.
+
+Debajo de `:root{ }` hay un bloque `@media (prefers-color-scheme: dark)` con la versión
+para modo oscuro. Si cambias un color de la paleta clara, revisa su equivalente ahí.
+
+Todos los colores actuales cumplen el contraste mínimo AA (4.5 a 1) tanto en modo claro
+como en modo oscuro. Si los cambias, conviene volver a verificarlo.
+
+---
+
+## Decisiones de diseño
+
+Se dejan anotadas porque son las primeras que se olvidan y las primeras que se preguntan.
+
+- **La página abre en el día actual solo si la fecha coincide exactamente** con un día del
+  congreso. Fuera de esas fechas abre en lunes y no marca nada como "en curso". Se descartó
+  la opción de identificar el día por día de la semana para no mostrar información engañosa
+  antes del evento.
+- **Al empezar a escribir en el buscador se limpia el filtro de tema**, pero si ya hay texto
+  escrito se puede aplicar un filtro y se combina. Surgió de las pruebas con usuarios: varias
+  personas buscaban con un filtro activo sin darse cuenta y no encontraban nada.
+- **Sin tipografías ni imágenes externas.** La página no pide nada a otros servidores, para
+  que cargue rápido con el wifi saturado del congreso y siga funcionando sin conexión.
+- **Los recesos y comidas se muestran como líneas delgadas**, no como tarjetas, para que el
+  programa del día quepa en menos pantallas.
+- **La hora "en curso" usa el reloj del dispositivo de cada persona**, no un reloj del servidor.
+- **Sin logotipos institucionales**, por decisión de la organización.
+
+---
+
+## Pendientes de contenido
+
+Aparecen en la página como **programa por confirmar**, con su horario y sala visibles:
+
+- Los títulos de las seis sesiones del LAWCC (miércoles y jueves, EPIC Lab).
+- Los cuatro bloques del TLISC en Bib3 (miércoles y jueves).
+- Las Conferencias Magistrales. El sitio oficial ya publica cuatro ponentes con sus títulos,
+  pero no indica qué día le toca a cada uno, así que falta esa asignación.
+
+Otros puntos abiertos:
+
+- Los nombres de autores y ponentes de todas las ponencias.
+- La sala de las Conferencias Magistrales: el sitio oficial dice auditorio del ITAM.
+- La LANC (Conferencia Latinoamericana de Redes) aparece como evento asociado en el sitio
+  oficial pero no está en los horarios recibidos.
+- **Los nombres de las salas (`Bib1`, `Bib2`, `Bib3`) son provisionales** y se definirán más
+  cerca del evento, en función del número de personas registradas.
+
+---
+
 ## Publicación
 
 La página se publica con GitHub Pages desde la rama `main`, carpeta raíz (`/`).
@@ -65,20 +123,4 @@ Se configura en **Settings → Pages**.
 
 Después de cada cambio, GitHub tarda entre uno y dos minutos en actualizar el sitio.
 Si no ves el cambio, recarga forzando la actualización del caché
-(en el celular: cierra la pestaña y vuelve a escanear el QR).
-
----
-
-## Pendientes de contenido
-
-Al momento de publicar, faltan por confirmar:
-
-- Los títulos de las seis sesiones del LAWCC (miércoles y jueves, EPIC Lab).
-- Los ponentes y títulos de las Conferencias Magistrales (los cinco días, 15:00–16:00).
-- El contenido de los cuatro bloques TLISC en Bib3 (miércoles y jueves).
-- Los nombres de autores y ponentes de todas las ponencias.
-
-Estos bloques aparecen en la página como **programa por confirmar**, con su horario
-y sala visibles.
-
-**Dominio:** https://gaticadess.github.io/clei-programa/
+(en el celular: cierra la pestaña y vuelve a abrirla).
