@@ -137,7 +137,7 @@ footer{margin-top:32px; padding-top:14px; border-top:1px solid var(--linea);
    Para cambiar el programa NO se toca este código: se edita el bloque de
    datos de arriba (<script id="datos">).
    ========================================================================== */
-try{
+function iniciarPrograma(){
 var D = JSON.parse(document.getElementById('datos').textContent);
 const prog = document.getElementById('prog');
 const elDias = document.getElementById('dias');
@@ -149,13 +149,14 @@ let diaSel = null, filtro = 'TODOS';
 document.getElementById('act').textContent = D.evento.actualizado;
 
 /* --- día por defecto: hoy si el congreso está en curso, si no el primero --- */
-function hoyISO(){ const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function dos(n){ return (n<10?'0':'')+n; }
+function hoyISO(){ var d=new Date(); return d.getFullYear()+'-'+dos(d.getMonth()+1)+'-'+dos(d.getDate()); }
 const hoy = hoyISO();
 diaSel = D.dias[0].nombre;
 for(var _i=0;_i<D.dias.length;_i++){ if(D.dias[_i].fecha===hoy) diaSel=D.dias[_i].nombre; }
 
 /* --- minutos desde medianoche, para saber qué está en curso --- */
-function min(h){ const [a,b]=h.split(':').map(Number); return a*60+b; }
+function min(h){ var p=h.split(':'); return Number(p[0])*60+Number(p[1]); }
 function ahoraMin(){ const d=new Date(); return d.getHours()*60+d.getMinutes(); }
 function diaObj(n){ for(var i=0;i<D.dias.length;i++){ if(D.dias[i].nombre===n) return D.dias[i]; } return null; }
 function esHoy(){ var d=diaObj(diaSel); return !!d && d.fecha===hoy; }
@@ -242,8 +243,8 @@ function pasa(s){
   return true;
 }
 function coincide(s, txt){
-  const b=[s.sala,s.cod,s.tipo,s.sub,(D.tracks[s.track]||{}).nombre,
-           ...s.pon.map(p=>p.t)].join(' ').toLowerCase();
+  var b=[s.sala,s.cod,s.tipo,s.sub,(D.tracks[s.track]||{}).nombre]
+          .concat(s.pon.map(function(p){ return p.t; })).join(' ').toLowerCase();
   return b.includes(txt);
 }
 
@@ -302,13 +303,16 @@ function vacio(t,s){
 }
 
 pinta();
+}
 
-} catch (e) {
+/* Red de seguridad: si algo falla, se ve en pantalla en lugar de quedar en blanco. */
+function mostrarError(e){
   document.getElementById('prog').innerHTML =
     '<div class="vacio"><b>No se pudo cargar el programa</b>'+
-    'Actualiza tu navegador o ábrela en otro dispositivo. Detalle técnico: '+
+    'Vuelve a intentarlo o ábrela en otro dispositivo. Detalle técnico: '+
     (e && e.message ? e.message : e)+'</div>';
 }
+try { iniciarPrograma(); } catch (e) { mostrarError(e); }
 </script>
 </body>
 </html>
