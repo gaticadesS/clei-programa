@@ -80,3 +80,5 @@ Al momento de publicar, faltan por confirmar:
 
 Estos bloques aparecen en la página como **programa por confirmar**, con su horario
 y sala visibles.
+
+**Dominio:** https://gaticadess.github.io/clei-programa/
