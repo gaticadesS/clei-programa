@@ -151,15 +151,19 @@ document.getElementById('act').textContent = D.evento.actualizado;
 /* --- día por defecto: hoy si el congreso está en curso, si no el primero --- */
 function dos(n){ return (n<10?'0':'')+n; }
 function hoyISO(){ var d=new Date(); return d.getFullYear()+'-'+dos(d.getMonth()+1)+'-'+dos(d.getDate()); }
-const hoy = hoyISO();
-diaSel = D.dias[0].nombre;
-for(var _i=0;_i<D.dias.length;_i++){ if(D.dias[_i].fecha===hoy) diaSel=D.dias[_i].nombre; }
+var hoy = hoyISO();
+/* Solo coincidencia por fecha exacta: fuera de los días del congreso
+   la página abre en el primer día y no marca nada como "en curso". */
+function diaDeHoy(){
+  for(var i=0;i<D.dias.length;i++){ if(D.dias[i].fecha===hoy) return D.dias[i].nombre; }
+  return null;
+}
+diaSel = diaDeHoy() || D.dias[0].nombre;
 
 /* --- minutos desde medianoche, para saber qué está en curso --- */
 function min(h){ var p=h.split(':'); return Number(p[0])*60+Number(p[1]); }
 function ahoraMin(){ const d=new Date(); return d.getHours()*60+d.getMinutes(); }
-function diaObj(n){ for(var i=0;i<D.dias.length;i++){ if(D.dias[i].nombre===n) return D.dias[i]; } return null; }
-function esHoy(){ var d=diaObj(diaSel); return !!d && d.fecha===hoy; }
+function esHoy(){ return diaSel === diaDeHoy(); }
 
 /* --- botones de día --- */
 D.dias.forEach(d=>{
@@ -167,7 +171,7 @@ D.dias.forEach(d=>{
   b.className='dia'; b.type='button'; b.dataset.dia=d.nombre;
   b.innerHTML='<b>'+d.corto+'</b><span>'+d.num+'</span>';
   b.setAttribute('aria-label', d.nombre+' '+d.num+' de septiembre');
-  b.onclick=()=>{ diaSel=d.nombre; q.value=''; pinta(); };
+  b.onclick=function(){ diaSel=d.nombre; q.value=''; qAntes=''; pinta(); };
   elDias.appendChild(b);
 });
 
@@ -181,16 +185,31 @@ D.filtros.forEach(f=>{
   elChips.appendChild(b);
 });
 
-document.getElementById('ahora').onclick=()=>{
-  var d=null; for(var i=0;i<D.dias.length;i++){ if(D.dias[i].fecha===hoy) d=D.dias[i]; }
-  q.value=''; filtro='TODOS';
-  diaSel = d ? d.nombre : D.dias[0].nombre;
+document.getElementById('ahora').onclick=function(){
+  q.value=''; qAntes=''; filtro='TODOS';
+  diaSel = diaDeHoy() || D.dias[0].nombre;
   pinta();
-  const e=document.querySelector('.encurso')||document.querySelector('.franja');
-  if(e) e.scrollIntoView({block:'center', behavior:'smooth'});
+  var destino = document.querySelector('.encurso');
+  if(!destino){
+    /* Nada en curso: llevamos a la siguiente franja del día, o a la última si ya terminó. */
+    var franjas = document.querySelectorAll('.franja'), t = ahoraMin(), i;
+    for(i=0;i<franjas.length;i++){
+      if(min(franjas[i].getAttribute('data-ini')) >= t){ destino = franjas[i]; break; }
+    }
+    if(!destino && franjas.length) destino = franjas[franjas.length-1];
+  }
+  if(destino && destino.scrollIntoView) destino.scrollIntoView({block:'center', behavior:'smooth'});
 };
 
-q.addEventListener('input', pinta);
+var qAntes = '';
+q.addEventListener('input', function(){
+  var ahora = q.value.trim();
+  /* Solo al pasar de vacío a con texto: así, si ya estás buscando,
+     puedes tocar un filtro y se combina con lo que llevas escrito. */
+  if(qAntes === '' && ahora !== '') filtro = 'TODOS';
+  qAntes = ahora;
+  pinta();
+});
 
 /* --- construcción de una tarjeta --- */
 function tarjeta(s, conDia){
@@ -271,7 +290,7 @@ function pinta(){
     const bloque=dia.filter(s=>s.ini===ini && s.fin===fin);
     const soloLog=bloque.every(s=>s.grupo==='LOG');
     if(soloLog){ bloque.forEach(s=>prog.appendChild(banda(s))); return; }
-    const h=document.createElement('div'); h.className='franja';
+    var h=document.createElement('div'); h.className='franja'; h.setAttribute('data-ini', ini);
     const enCurso = esHoy() && min(ini)<=ahoraMin() && ahoraMin()<min(fin);
     h.innerHTML='<span class="hora">'+ini+'–'+fin+'</span>'+
       (enCurso?'<span class="ahora">EN CURSO</span>':'')+'<span class="raya"></span>';
