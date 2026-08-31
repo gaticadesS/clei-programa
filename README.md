@@ -93,6 +93,11 @@ Se dejan anotadas porque son las primeras que se olvidan y las primeras que se p
   programa del día quepa en menos pantallas.
 - **La hora "en curso" usa el reloj del dispositivo de cada persona**, no un reloj del servidor.
 - **Sin logotipos institucionales**, por decisión de la organización.
+- **Ante cualquier diferencia entre el PDF de artículos y las imágenes del programa,
+  gana el PDF.** Indicación de la organización.
+- **Las presentaciones virtuales se marcan con la etiqueta VIRTUAL y van al final de su
+  sesión.** Se declaran en la lista `VIRTUALES` del generador; en `index.html` aparecen
+  con `"v":1` dentro de la ponencia.
 
 ---
 
@@ -107,6 +112,8 @@ Aparecen en la página como **programa por confirmar**, con su horario y sala vi
 
 Otros puntos abiertos:
 
+- Qué artículo es el virtual en cada una de las nueve sesiones con presentación virtual
+  (IA-1, IA-8, IA-14, IA-16, SOFT-3, EDU-3, PRACT-7, TEC-3 y LAWCC-5).
 - El tipo de sesión de LAWCC-3 y LAWCC-7, las dos sesiones nuevas en Bib2.
 - Los nombres de autores y ponentes de todas las ponencias.
 - La sala de las Conferencias Magistrales: el sitio oficial dice auditorio del ITAM.
@@ -118,6 +125,11 @@ Otros puntos abiertos:
 ---
 
 ## Historial de cambios en el programa
+
+- **31 de agosto de 2026.** Se retiró #331 de TEC-3; #234 salió de TEC-2 y entró #78, que
+  venía de TEC-5; se corrigió el número de la ponencia de IA-6 (#201 a #210) y el título de
+  la #211 en EDU-3; PRACT-7 cambió de orden y ahora empieza a las 9:00; LAWCC-8 incluye la
+  premiación. Se agregó el soporte para marcar presentaciones virtuales.
 
 - **26 de agosto de 2026.** El LAWCC pasó de seis a ocho sesiones y cambió su numeración.
   Se agregaron dos sesiones nuevas en Bib2 (miércoles y jueves, 14:00-15:00) y se cargaron
