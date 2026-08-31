@@ -98,21 +98,30 @@ Se dejan anotadas porque son las primeras que se olvidan y las primeras que se p
 
 ## Pendientes de contenido
 
-Aparecen en la página como **programa por confirmar**, con su horario y sala visibles:
+Aparecen en la página como **programa por confirmar**, con su horario y sala visibles
+(ocho bloques en total):
 
-- Los títulos de las seis sesiones del LAWCC (miércoles y jueves, EPIC Lab).
 - Los cuatro bloques del TLISC en Bib3 (miércoles y jueves).
-- Las Conferencias Magistrales. El sitio oficial ya publica cuatro ponentes con sus títulos,
-  pero no indica qué día le toca a cada uno, así que falta esa asignación.
+- Las cuatro Conferencias Magistrales. El sitio oficial ya publica cuatro ponentes con sus
+  títulos, pero no indica qué día le toca a cada uno, así que falta esa asignación.
 
 Otros puntos abiertos:
 
+- El tipo de sesión de LAWCC-3 y LAWCC-7, las dos sesiones nuevas en Bib2.
 - Los nombres de autores y ponentes de todas las ponencias.
 - La sala de las Conferencias Magistrales: el sitio oficial dice auditorio del ITAM.
 - La LANC (Conferencia Latinoamericana de Redes) aparece como evento asociado en el sitio
   oficial pero no está en los horarios recibidos.
 - **Los nombres de las salas (`Bib1`, `Bib2`, `Bib3`) son provisionales** y se definirán más
   cerca del evento, en función del número de personas registradas.
+
+---
+
+## Historial de cambios en el programa
+
+- **26 de agosto de 2026.** El LAWCC pasó de seis a ocho sesiones y cambió su numeración.
+  Se agregaron dos sesiones nuevas en Bib2 (miércoles y jueves, 14:00-15:00) y se cargaron
+  las ponencias de las ocho. Las imágenes del programa impreso todavía no reflejan este cambio.
 
 ---
 
