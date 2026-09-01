@@ -38,6 +38,9 @@ y edita el valor de `"sala"` que está junto a él.
 **Cambiar un horario:** edita `"ini"` (hora de inicio) y `"fin"` (hora de término).
 Siempre en formato de 24 horas con dos dígitos: `"16:30"`.
 
+**Agregar los autores de una ponencia:** dentro de la ponencia, junto a `"n"` y `"t"`,
+se agrega `"a":["Nombre Apellido","Otro Nombre"]`. La página los abrevia sola.
+
 **Llenar una sesión que está por confirmar:** cambia `"estado":"por-confirmar"`
 por `"estado":"ok"` y sustituye `"pon":[]` por la lista de ponencias:
 
@@ -93,6 +96,12 @@ Se dejan anotadas porque son las primeras que se olvidan y las primeras que se p
   programa del día quepa en menos pantallas.
 - **La hora "en curso" usa el reloj del dispositivo de cada persona**, no un reloj del servidor.
 - **Sin logotipos institucionales**, por decisión de la organización.
+- **Los autores se muestran abreviados**: inicial del nombre de pila y el resto del nombre
+  completo (`M. Fernanda Papa`), para no perder apellidos compuestos. Se muestran hasta
+  cuatro por ponencia y el resto se resume como "y N más". Si se busca por un autor que
+  quedó oculto, la lista se despliega completa en ese resultado.
+- **El buscador cubre título, autor, sala, código y tipo de sesión**, en los cinco días.
+- **No se guardan correos ni afiliaciones**, solo el nombre de cada autor.
 - **Ante cualquier diferencia entre el PDF de artículos y las imágenes del programa,
   gana el PDF.** Indicación de la organización.
 - **Las presentaciones virtuales se marcan con la etiqueta VIRTUAL y van al final de su
@@ -115,7 +124,6 @@ Otros puntos abiertos:
 - Qué artículo es el virtual en cada una de las nueve sesiones con presentación virtual
   (IA-1, IA-8, IA-14, IA-16, SOFT-3, EDU-3, PRACT-7, TEC-3 y LAWCC-5).
 - El tipo de sesión de LAWCC-3 y LAWCC-7, las dos sesiones nuevas en Bib2.
-- Los nombres de autores y ponentes de todas las ponencias.
 - La sala de las Conferencias Magistrales: el sitio oficial dice auditorio del ITAM.
 - La LANC (Conferencia Latinoamericana de Redes) aparece como evento asociado en el sitio
   oficial pero no está en los horarios recibidos.
@@ -125,6 +133,10 @@ Otros puntos abiertos:
 ---
 
 ## Historial de cambios en el programa
+
+- **1 de septiembre de 2026.** Se agregaron los autores de las 169 ponencias numeradas a
+  partir de la tabla `authors_accepted_clei2026.xlsx`, y el buscador ahora también busca
+  por autor.
 
 - **31 de agosto de 2026.** Se retiró #331 de TEC-3; #234 salió de TEC-2 y entró #78, que
   venía de TEC-5; se corrigió el número de la ponencia de IA-6 (#201 a #210) y el título de
