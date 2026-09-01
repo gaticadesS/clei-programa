@@ -70,6 +70,27 @@ body{
 .dia:focus-visible,.chip:focus-visible,.tarjeta summary:focus-visible,.btn:focus-visible{
   outline:2px solid var(--acento); outline-offset:2px}
 
+.cab-fila{display:flex; align-items:flex-start; justify-content:space-between; gap:12px}
+.btn-mapa{flex:0 0 auto; display:inline-flex; align-items:center; gap:6px; font:inherit;
+  font-size:13.5px; font-weight:600; color:var(--solido-txt); cursor:pointer;
+  background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.28);
+  border-radius:var(--radio); padding:7px 11px; margin-top:2px}
+.btn-mapa:active{background:rgba(255,255,255,.22)}
+.btn-mapa:focus-visible{outline:2px solid var(--solido-txt); outline-offset:2px}
+
+/* Capa del mapa */
+.capa[hidden]{display:none}
+.capa{position:fixed; inset:0; z-index:60; background:var(--fondo);
+  display:flex; flex-direction:column; padding:12px 14px calc(12px + env(safe-area-inset-bottom))}
+.capa-cab{display:flex; align-items:center; justify-content:space-between; gap:12px; padding-bottom:10px}
+.capa-cab b{font-size:16px}
+/* El mapa es apaisado y la pantalla del celular es vertical: si se ajusta al ancho
+   queda ilegible. Se ajusta a la altura y se desliza en horizontal. */
+.capa-cuerpo{flex:1; min-height:0; background:#ffffff; border:1px solid var(--linea);
+  border-radius:var(--radio); overflow:auto; -webkit-overflow-scrolling:touch}
+.capa-cuerpo img{display:block; height:100%; width:auto; max-width:none; margin:0 auto; cursor:zoom-in}
+.capa-pie{margin:10px 0 0; font-size:12.5px; color:var(--suave); text-align:center}
+
 .busca{display:flex; gap:8px; padding-bottom:8px; align-items:center}
 .busca input{flex:1; min-width:0; font:inherit; font-size:16px; padding:9px 12px;
   border:1px solid var(--linea); border-radius:var(--radio); background:var(--fondo); color:var(--tinta)}
@@ -139,10 +160,28 @@ footer{margin-top:32px; padding-top:14px; border-top:1px solid var(--linea);
 </head>
 <body>
 
-<header class="cab"><div class="env">
-  <h1>52ª CLEI · Programa</h1>
-  <p>ITAM, Ciudad de México · 7 al 11 de septiembre de 2026</p>
+<header class="cab"><div class="env cab-fila">
+  <div>
+    <h1>52ª CLEI · Programa</h1>
+    <p>ITAM, Ciudad de México · 7 al 11 de septiembre de 2026</p>
+  </div>
+  <button class="btn-mapa" id="abrir-mapa" type="button" aria-haspopup="dialog">
+    <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none"
+         stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+      <path d="M9 3 3 5.5v16L9 19l6 2.5 6-2.5v-16L15 5.5 9 3z"/><path d="M9 3v16"/><path d="M15 5.5v16"/>
+    </svg>Mapa</button>
 </div></header>
+
+<div class="capa" id="capa-mapa" role="dialog" aria-modal="true" aria-label="Mapa del ITAM" hidden>
+  <div class="capa-cab">
+    <b>Mapa del ITAM</b>
+    <button class="btn" id="cerrar-mapa" type="button">Cerrar</button>
+  </div>
+  <div class="capa-cuerpo">
+    <img id="img-mapa" data-src="mapa.png" alt="Mapa del campus del ITAM con la ubicación del auditorio, la sala de conferencias, la sala de maestros, el EPIC-LAB, la biblioteca y la mesa de registro.">
+  </div>
+  <p class="capa-pie">Desliza para recorrer el mapa. Tócalo para abrirlo en grande.</p>
+</div>
 
 <div class="barra"><div class="env">
   <div class="dias" id="dias" role="group" aria-label="Días del congreso"></div>
@@ -385,6 +424,33 @@ function vacio(t,s){
 }
 
 pinta();
+
+/* --- Mapa del campus --- */
+var capa = document.getElementById('capa-mapa');
+var img  = document.getElementById('img-mapa');
+function abrirMapa(){
+  /* La imagen se descarga solo la primera vez que alguien abre el mapa. */
+  if(!img.getAttribute('src')) img.setAttribute('src', img.getAttribute('data-src'));
+  capa.hidden = false;
+  document.body.style.overflow = 'hidden';
+  /* Se centra el mapa: lo importante está a la derecha del estacionamiento. */
+  var cuerpo = capa.querySelector('.capa-cuerpo');
+  img.onload = function(){ cuerpo.scrollLeft = (cuerpo.scrollWidth - cuerpo.clientWidth) / 2; };
+  if(img.complete) img.onload();
+  document.getElementById('cerrar-mapa').focus();
+}
+function cerrarMapa(){
+  capa.hidden = true;
+  document.body.style.overflow = '';
+  document.getElementById('abrir-mapa').focus();
+}
+document.getElementById('abrir-mapa').onclick = abrirMapa;
+document.getElementById('cerrar-mapa').onclick = cerrarMapa;
+capa.onclick = function(e){ if(e.target === capa) cerrarMapa(); };
+img.onclick = function(){ window.open(img.getAttribute('data-src'), '_blank'); };
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape' && !capa.hidden) cerrarMapa();
+});
 }
 
 /* Red de seguridad: si algo falla, se ve en pantalla en lugar de quedar en blanco. */

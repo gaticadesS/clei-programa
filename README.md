@@ -14,6 +14,7 @@ mediante un código QR. Un solo archivo, sin dependencias externas.
 | Archivo | Para qué sirve |
 |---|---|
 | `index.html` | La página completa. Es lo único que se publica. |
+| `mapa.png` | Mapa del campus del ITAM que abre el botón "Mapa". |
 | `README.md` | Este documento. |
 
 `index.html` contiene tres cosas: el diseño (CSS), el programa (un bloque de datos)
@@ -95,7 +96,11 @@ Se dejan anotadas porque son las primeras que se olvidan y las primeras que se p
 - **Los recesos y comidas se muestran como líneas delgadas**, no como tarjetas, para que el
   programa del día quepa en menos pantallas.
 - **La hora "en curso" usa el reloj del dispositivo de cada persona**, no un reloj del servidor.
-- **Sin logotipos institucionales**, por decisión de la organización.
+- **El mapa se descarga solo cuando alguien abre el botón "Mapa"**, no al cargar la página.
+- **El mapa se ajusta a la altura de la pantalla y se recorre en horizontal.** Es una imagen
+  apaisada y la pantalla del celular es vertical: ajustarla al ancho la dejaba ilegible.
+  Para reemplazarlo basta subir un `mapa.png` nuevo con el mismo nombre; conviene alrededor
+  de 1800 px de ancho y paleta reducida, para que pese menos de 150 KB.
 - **Los autores se muestran abreviados**: inicial del nombre de pila y el resto del nombre
   completo (`M. Fernanda Papa`), para no perder apellidos compuestos. Se muestran hasta
   cuatro por ponencia y el resto se resume como "y N más". Si se busca por un autor que
@@ -133,6 +138,9 @@ Otros puntos abiertos:
 ---
 
 ## Historial de cambios en el programa
+
+- **1 de septiembre de 2026.** Se agregó el botón "Mapa" en el encabezado, con el plano del
+  campus del ITAM.
 
 - **1 de septiembre de 2026.** Se agregaron los autores de las 169 ponencias numeradas a
   partir de la tabla `authors_accepted_clei2026.xlsx`, y el buscador ahora también busca
