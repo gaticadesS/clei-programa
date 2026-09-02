@@ -93,6 +93,13 @@ Se dejan anotadas porque son las primeras que se olvidan y las primeras que se p
   personas buscaban con un filtro activo sin darse cuenta y no encontraban nada.
 - **Sin tipografías ni imágenes externas.** La página no pide nada a otros servidores, para
   que cargue rápido con el wifi saturado del congreso y siga funcionando sin conexión.
+- **El titular de cada tarjeta es lo que ocurre, no dónde ocurre.** Para una sesión es el
+  nombre corto de su track; para un evento general (magistral, ceremonia, evento social) es
+  el nombre del evento. La sala pasó a ser una etiqueta a la derecha.
+- **Cada track tiene un nombre corto** (diccionario `CORTO` del generador) para ese titular.
+  El nombre completo se conserva en el catálogo y en las búsquedas.
+- **Los eventos generales llevan un fondo tenue** para distinguirse de las sesiones de
+  ponencias, que son la mayoría.
 - **Los recesos y comidas se muestran como líneas delgadas**, no como tarjetas, para que el
   programa del día quepa en menos pantallas.
 - **La hora "en curso" usa el reloj del dispositivo de cada persona**, no un reloj del servidor.
@@ -146,6 +153,10 @@ Otros puntos abiertos:
 ---
 
 ## Historial de cambios en el programa
+
+- **2 de septiembre de 2026 (revisión visual).** Se reorganizó la jerarquía de las tarjetas,
+  se añadieron nombres cortos de track, la sala pasó a etiqueta y los eventos generales
+  se distinguen con fondo propio.
 
 - **2 de septiembre de 2026 (tarde).** Se agregaron los eventos del auditorio y de Plaza
   Palmeras (inscripción, inauguración, panel, brindis, premio al mérito, compartir mexicano,
