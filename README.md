@@ -110,8 +110,11 @@ Se dejan anotadas porque son las primeras que se olvidan y las primeras que se p
 - **Ante cualquier diferencia entre el PDF de artículos y las imágenes del programa,
   gana el PDF.** Indicación de la organización.
 - **Las presentaciones virtuales se marcan con la etiqueta VIRTUAL y van al final de su
-  sesión.** Se declaran en la lista `VIRTUALES` del generador; en `index.html` aparecen
-  con `"v":1` dentro de la ponencia.
+  sesión.** En `index.html` aparecen con `"v":1` dentro de la ponencia; el orden se acomoda
+  solo, no hace falta moverlas a mano.
+- **Quién presenta cada artículo** se guarda como `"p":"Dr. Nombre Apellido"` y se muestra en
+  negritas encima de la lista de autores. Por ahora solo lo usa Tecnologías de Información.
+- **El chair de la sesión** se muestra bajo el título de la sesión y también se puede buscar.
 
 ---
 
@@ -120,14 +123,16 @@ Se dejan anotadas porque son las primeras que se olvidan y las primeras que se p
 Aparecen en la página como **programa por confirmar**, con su horario y sala visibles
 (ocho bloques en total):
 
-- Los cuatro bloques del TLISC en Bib3 (miércoles y jueves).
+- Los tres bloques del TLISC en Bib3 sin definir (miércoles 14:00 y 16:30, jueves 14:00).
 - Las cuatro Conferencias Magistrales. El sitio oficial ya publica cuatro ponentes con sus
   títulos, pero no indica qué día le toca a cada uno, así que falta esa asignación.
 
 Otros puntos abiertos:
 
-- Qué artículo es el virtual en cada una de las nueve sesiones con presentación virtual
-  (IA-1, IA-8, IA-14, IA-16, SOFT-3, EDU-3, PRACT-7, TEC-3 y LAWCC-5).
+- Confirmar la presentación virtual de EDU-2 (#164): viene marcada en el PDF pero EDU-2 no
+  estaba en la lista de sesiones con presentación virtual.
+- Confirmar el orden de EDU-3: el PDF marca la #277 como virtual pero la coloca antes de
+  la #208. Se aplicó la regla general y quedó al final.
 - El tipo de sesión de LAWCC-3 y LAWCC-7, las dos sesiones nuevas en Bib2.
 - La sala de las Conferencias Magistrales: el sitio oficial dice auditorio del ITAM.
 - La LANC (Conferencia Latinoamericana de Redes) aparece como evento asociado en el sitio
@@ -138,6 +143,11 @@ Otros puntos abiertos:
 ---
 
 ## Historial de cambios en el programa
+
+- **2 de septiembre de 2026.** Se agregó TLISC-5 (Bib3, jueves 16:30). El track de Tecnologías
+  de Información cambió títulos de sesión, chairs y reparto de artículos (#320 pasó de TEC-4 a
+  TEC-1, #201 de TEC-1 a TEC-3, #104 de TEC-5 a TEC-4) y ahora indica quién presenta cada
+  artículo. Se marcaron diez presentaciones virtuales, que se muestran al final de su sesión.
 
 - **1 de septiembre de 2026.** Se agregó el botón "Mapa" en el encabezado, con el plano del
   campus del ITAM.
