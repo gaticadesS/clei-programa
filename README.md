@@ -121,14 +121,17 @@ Se dejan anotadas porque son las primeras que se olvidan y las primeras que se p
 ## Pendientes de contenido
 
 Aparecen en la página como **programa por confirmar**, con su horario y sala visibles
-(ocho bloques en total):
+(tres bloques en total):
 
 - Los tres bloques del TLISC en Bib3 sin definir (miércoles 14:00 y 16:30, jueves 14:00).
-- Las cuatro Conferencias Magistrales. El sitio oficial ya publica cuatro ponentes con sus
-  títulos, pero no indica qué día le toca a cada uno, así que falta esa asignación.
 
 Otros puntos abiertos:
 
+- El título de la conferencia magistral de la Dra. Alejandra Herrera Mendoza (jueves).
+- Confirmar que la clausura es el viernes 13:30 en el auditorio: antes se había confirmado
+  el jueves en Bib3, y la programación diaria nueva la mueve al viernes.
+- Confirmar los horarios de los talleres ELI2 y ELI4: los documentos de curso indican
+  horarios distintos a los de las imágenes del programa. Se mantuvieron los de las imágenes.
 - Confirmar la presentación virtual de EDU-2 (#164): viene marcada en el PDF pero EDU-2 no
   estaba en la lista de sesiones con presentación virtual.
 - Confirmar el orden de EDU-3: el PDF marca la #277 como virtual pero la coloca antes de
@@ -143,6 +146,11 @@ Otros puntos abiertos:
 ---
 
 ## Historial de cambios en el programa
+
+- **2 de septiembre de 2026 (tarde).** Se agregaron los eventos del auditorio y de Plaza
+  Palmeras (inscripción, inauguración, panel, brindis, premio al mérito, compartir mexicano,
+  asamblea CLEI y comida típica), las cuatro conferencias magistrales con ponente y título,
+  y la información de los cuatro talleres de la ELI. La clausura pasó del jueves al viernes.
 
 - **2 de septiembre de 2026.** Se agregó TLISC-5 (Bib3, jueves 16:30). El track de Tecnologías
   de Información cambió títulos de sesión, chairs y reparto de artículos (#320 pasó de TEC-4 a
