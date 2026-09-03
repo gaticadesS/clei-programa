@@ -83,12 +83,21 @@ body{
 .capa{position:fixed; inset:0; z-index:60; background:var(--fondo);
   display:flex; flex-direction:column; padding:12px 14px calc(12px + env(safe-area-inset-bottom))}
 .capa-cab{display:flex; align-items:center; justify-content:space-between; gap:12px; padding-bottom:10px}
-.capa-cab b{font-size:16px}
+.conmuta{display:inline-flex; border:1px solid var(--linea); border-radius:var(--radio);
+  overflow:hidden; background:var(--superficie)}
+.cm{font:inherit; font-size:13.5px; font-weight:600; padding:7px 14px; border:0; cursor:pointer;
+  background:transparent; color:var(--suave)}
+.cm[aria-pressed="true"]{background:var(--solido); color:var(--solido-txt)}
+.cm:focus-visible{outline:2px solid var(--acento); outline-offset:-2px}
+.enlace{font:inherit; font-size:12.5px; font-weight:600; color:var(--acento);
+  background:none; border:0; padding:4px 6px; cursor:pointer; text-decoration:underline}
 /* El mapa es apaisado y la pantalla del celular es vertical: si se ajusta al ancho
    queda ilegible. Se ajusta a la altura y se desliza en horizontal. */
 .capa-cuerpo{flex:1; min-height:0; background:#ffffff; border:1px solid var(--linea);
   border-radius:var(--radio); overflow:auto; -webkit-overflow-scrolling:touch}
-.capa-cuerpo img{display:block; height:100%; width:auto; max-width:none; margin:0 auto; cursor:zoom-in}
+.capa-cuerpo img{display:block; margin:0 auto}
+.capa-cuerpo img.apaisado{height:100%; width:auto; max-width:none}
+.capa-cuerpo img.vertical{width:100%; height:auto; max-height:none}
 .capa-pie{margin:10px 0 0; font-size:12.5px; color:var(--suave); text-align:center}
 
 .busca{display:flex; gap:8px; padding-bottom:8px; align-items:center}
@@ -178,15 +187,21 @@ footer{margin-top:32px; padding-top:14px; border-top:1px solid var(--linea);
     </svg>Mapa</button>
 </div></header>
 
-<div class="capa" id="capa-mapa" role="dialog" aria-modal="true" aria-label="Mapa del ITAM" hidden>
+<div class="capa" id="capa-mapa" role="dialog" aria-modal="true" aria-label="Mapas del ITAM" hidden>
   <div class="capa-cab">
-    <b>Mapa del ITAM</b>
+    <div class="conmuta" role="group" aria-label="Elegir mapa">
+      <button type="button" class="cm" data-mapa="campus" aria-pressed="true">Campus</button>
+      <button type="button" class="cm" data-mapa="biblioteca" aria-pressed="false">Biblioteca</button>
+    </div>
     <button class="btn" id="cerrar-mapa" type="button">Cerrar</button>
   </div>
   <div class="capa-cuerpo">
-    <img id="img-mapa" data-src="mapa.png" alt="Mapa del campus del ITAM con la ubicación del auditorio, la sala de conferencias, la sala de maestros, el EPIC-LAB, la biblioteca y la mesa de registro.">
+    <img id="img-mapa" alt="">
   </div>
-  <p class="capa-pie">Desliza para recorrer el mapa. Tócalo para abrirlo en grande.</p>
+  <p class="capa-pie">
+    Desliza para recorrer el mapa.
+    <button type="button" class="enlace" id="ver-grande">Abrir imagen completa</button>
+  </p>
 </div>
 
 <div class="barra"><div class="env">
@@ -449,15 +464,49 @@ pinta();
 /* --- Mapa del campus --- */
 var capa = document.getElementById('capa-mapa');
 var img  = document.getElementById('img-mapa');
+var MAPAS = {
+  campus: {archivo:'mapa.png',
+    alt:'Mapa del campus del ITAM con la ubicación del auditorio, la sala de conferencias, la sala de maestros, el EPIC-LAB, la biblioteca y la mesa de registro.'},
+  biblioteca: {archivo:'mapa-biblioteca.png',
+    alt:'Planos de la biblioteca del ITAM: planta baja, piso 1 con la sala de capacitación y piso 2 con la sala de juntas y las salas de video 1 y 2.'}
+};
+var mapaActual = 'campus';
+var cuerpoMapa = capa.querySelector('.capa-cuerpo');
+
+function ponerMapa(cual){
+  mapaActual = cual;
+  var m = MAPAS[cual];
+  img.className = '';
+  img.setAttribute('alt', m.alt);
+  img.setAttribute('src', m.archivo);
+  var botones = capa.querySelectorAll('.cm'), i;
+  for(i=0;i<botones.length;i++){
+    botones[i].setAttribute('aria-pressed', botones[i].getAttribute('data-mapa') === cual);
+  }
+  img.onload = ajustarMapa;
+  if(img.complete && img.naturalWidth) ajustarMapa();
+}
+
+/* El plano se agranda hasta llenar la pantalla por su lado más ajustado y se
+   recorre en la otra dirección. Comparar la proporción de la imagen con la del
+   hueco disponible, y no si es vertical u horizontal, es lo que evita que
+   quede pequeña en medio de la pantalla. */
+function ajustarMapa(){
+  if(!img.naturalWidth) return;
+  var propImg = img.naturalWidth / img.naturalHeight;
+  var propCaja = cuerpoMapa.clientWidth / cuerpoMapa.clientHeight;
+  var aAlto = propImg > propCaja;
+  img.className = aAlto ? 'apaisado' : 'vertical';
+  cuerpoMapa.scrollTop = 0;
+  cuerpoMapa.scrollLeft = aAlto ? (cuerpoMapa.scrollWidth - cuerpoMapa.clientWidth) / 2 : 0;
+}
+window.addEventListener('resize', function(){ if(!capa.hidden) ajustarMapa(); });
+
 function abrirMapa(){
-  /* La imagen se descarga solo la primera vez que alguien abre el mapa. */
-  if(!img.getAttribute('src')) img.setAttribute('src', img.getAttribute('data-src'));
+  /* Cada plano se descarga solo la primera vez que se pide. */
+  if(!img.getAttribute('src')) ponerMapa(mapaActual);
   capa.hidden = false;
   document.body.style.overflow = 'hidden';
-  /* Se centra el mapa: lo importante está a la derecha del estacionamiento. */
-  var cuerpo = capa.querySelector('.capa-cuerpo');
-  img.onload = function(){ cuerpo.scrollLeft = (cuerpo.scrollWidth - cuerpo.clientWidth) / 2; };
-  if(img.complete) img.onload();
   document.getElementById('cerrar-mapa').focus();
 }
 function cerrarMapa(){
@@ -468,7 +517,12 @@ function cerrarMapa(){
 document.getElementById('abrir-mapa').onclick = abrirMapa;
 document.getElementById('cerrar-mapa').onclick = cerrarMapa;
 capa.onclick = function(e){ if(e.target === capa) cerrarMapa(); };
-img.onclick = function(){ window.open(img.getAttribute('data-src'), '_blank'); };
+capa.querySelectorAll('.cm').forEach(function(b){
+  b.onclick = function(){ ponerMapa(b.getAttribute('data-mapa')); };
+});
+document.getElementById('ver-grande').onclick = function(){
+  window.open(MAPAS[mapaActual].archivo, '_blank');
+};
 document.addEventListener('keydown', function(e){
   if(e.key === 'Escape' && !capa.hidden) cerrarMapa();
 });

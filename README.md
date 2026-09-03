@@ -14,7 +14,8 @@ mediante un código QR. Un solo archivo, sin dependencias externas.
 | Archivo | Para qué sirve |
 |---|---|
 | `index.html` | La página completa. Es lo único que se publica. |
-| `mapa.png` | Mapa del campus del ITAM que abre el botón "Mapa". |
+| `mapa.png` | Mapa del campus del ITAM. |
+| `mapa-biblioteca.png` | Planos de los tres niveles de la biblioteca. |
 | `README.md` | Este documento. |
 
 `index.html` contiene tres cosas: el diseño (CSS), el programa (un bloque de datos)
@@ -104,10 +105,15 @@ Se dejan anotadas porque son las primeras que se olvidan y las primeras que se p
   programa del día quepa en menos pantallas.
 - **La hora "en curso" usa el reloj del dispositivo de cada persona**, no un reloj del servidor.
 - **El mapa se descarga solo cuando alguien abre el botón "Mapa"**, no al cargar la página.
-- **El mapa se ajusta a la altura de la pantalla y se recorre en horizontal.** Es una imagen
-  apaisada y la pantalla del celular es vertical: ajustarla al ancho la dejaba ilegible.
-  Para reemplazarlo basta subir un `mapa.png` nuevo con el mismo nombre; conviene alrededor
-  de 1800 px de ancho y paleta reducida, para que pese menos de 150 KB.
+- **El botón "Mapa" abre dos planos**, campus y biblioteca, con un selector arriba. Cada uno
+  se descarga la primera vez que se elige. Para reemplazarlos basta subir un archivo nuevo con
+  el mismo nombre; conviene paleta reducida para que pesen poco.
+- **Cada plano se agranda hasta llenar la pantalla por su lado más ajustado** y se recorre en
+  la otra dirección. La comparación es entre la proporción de la imagen y la del hueco
+  disponible, no si la imagen es vertical u horizontal: así ninguno queda pequeño en medio de
+  la pantalla, en celular o en computadora.
+- **Tocar el plano no hace nada.** Antes abría el archivo de imagen y era muy fácil activarlo
+  por accidente al deslizar; ahora eso está en el enlace "Abrir imagen completa" del pie.
 - **Los autores se muestran abreviados**: inicial del nombre de pila y el resto del nombre
   completo (`M. Fernanda Papa`), para no perder apellidos compuestos. Se muestran hasta
   cuatro por ponencia y el resto se resume como "y N más". Si se busca por un autor que
@@ -153,6 +159,9 @@ Otros puntos abiertos:
 ---
 
 ## Historial de cambios en el programa
+
+- **3 de septiembre de 2026.** Se agregaron los planos de la biblioteca, con un selector entre
+  campus y biblioteca, y se quitó la apertura del archivo al tocar el plano.
 
 - **2 de septiembre de 2026 (revisión visual).** Se reorganizó la jerarquía de las tarjetas,
   se añadieron nombres cortos de track, la sala pasó a etiqueta y los eventos generales
