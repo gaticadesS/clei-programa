@@ -128,6 +128,7 @@ Se dejan anotadas porque son las primeras que se olvidan y las primeras que se p
 - **Quién presenta cada artículo** se guarda como `"p":"Dr. Nombre Apellido"` y se muestra en
   negritas encima de la lista de autores. Por ahora solo lo usa Tecnologías de Información.
 - **El chair de la sesión** se muestra bajo el título de la sesión y también se puede buscar.
+  Las sesiones cuyo chair aún no está definido simplemente no muestran esa línea.
 
 ---
 
@@ -145,6 +146,8 @@ Otros puntos abiertos:
   el jueves en Bib3, y la programación diaria nueva la mueve al viernes.
 - Confirmar los horarios de los talleres ELI2 y ELI4: los documentos de curso indican
   horarios distintos a los de las imágenes del programa. Se mantuvieron los de las imágenes.
+- Los chairs de IA-5, IA-8, EDU-5, SOFT-2 y las cinco sesiones del TLISC: en el PDF vienen
+  como XXX y quedaron sin chair en la página.
 - Confirmar la presentación virtual de EDU-2 (#164): viene marcada en el PDF pero EDU-2 no
   estaba en la lista de sesiones con presentación virtual.
 - Confirmar el orden de EDU-3: el PDF marca la #277 como virtual pero la coloca antes de
@@ -159,6 +162,10 @@ Otros puntos abiertos:
 ---
 
 ## Historial de cambios en el programa
+
+- **3 de septiembre de 2026 (chairs).** Se agregaron los chairs de 38 sesiones. #173 y #157
+  se intercambiaron entre EDU-1 y EDU-2; #20 y #34 entre IA-10 e IA-11. Se marcaron como
+  virtuales #95 (LAWCC-2), #85 (PRACT-2) y #342 (LAWCC-5).
 
 - **3 de septiembre de 2026.** Se agregaron los planos de la biblioteca, con un selector entre
   campus y biblioteca, y se quitó la apertura del archivo al tocar el plano.
