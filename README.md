@@ -51,8 +51,9 @@ por `"estado":"ok"` y sustituye `"pon":[]` por la lista de ponencias:
        {"n":102,"t":"Título de la segunda ponencia"}]
 ```
 
-**Cancelar una sesión:** lo más claro para el asistente es dejarla visible.
-Cambia el `"tipo"` a `"Sesión cancelada"` y vacía `"pon":[]`.
+**Suspender o cancelar una sesión:** lo más claro para el asistente es dejarla visible.
+Agrega `"susp":1` dentro de la sesión. La tarjeta aparece con un aviso rojo SUSPENDIDO,
+atenuada y sin contenido desplegable. Para reactivarla, cambia el valor a `"susp":0`.
 
 ### Reglas para no romper el archivo
 
@@ -156,12 +157,14 @@ Otros puntos abiertos:
 - La sala de las Conferencias Magistrales: el sitio oficial dice auditorio del ITAM.
 - La LANC (Conferencia Latinoamericana de Redes) aparece como evento asociado en el sitio
   oficial pero no está en los horarios recibidos.
-- **Los nombres de las salas (`Bib1`, `Bib2`, `Bib3`) son provisionales** y se definirán más
-  cerca del evento, en función del número de personas registradas.
 
 ---
 
 ## Historial de cambios en el programa
+
+- **7 de septiembre de 2026.** Las tres salas de la biblioteca quedaron con su nombre
+  definitivo: Biblioteca (Bib1) - SV1, Biblioteca (Bib2) - SV2 y Biblioteca (Bib3) - Sala de
+  capacitación. Se suspendieron los cinco bloques de talleres de la ELI del lunes.
 
 - **3 de septiembre de 2026 (chairs).** Se agregaron los chairs de 38 sesiones. #173 y #157
   se intercambiaron entre EDU-1 y EDU-2; #20 y #34 entre IA-10 e IA-11. Se marcaron como
